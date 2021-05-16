@@ -1,0 +1,14 @@
+{
+  "Configurations": [
+    {
+       "Name": "test",
+       "Foo": 1,
+       "Bar": 1
+    },
+    {
+       "Name": "Bob",
+       "Foo": 2,
+       "Bar": 2
+    }
+  ]
+}
