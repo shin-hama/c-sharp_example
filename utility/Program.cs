@@ -7,8 +7,8 @@ namespace utility
     {
         static void Main(string[] args)
         {
-            string path = null;
-            Console.WriteLine(string.IsNullOrWhiteSpace(path.ToString()));
+            var test = new AsyncUtil();
+            test.LockObject();
         }
 
         static void TestProcess()
