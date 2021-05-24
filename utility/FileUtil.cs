@@ -23,5 +23,13 @@ namespace utility
         {
             Directory.CreateDirectory("./test/test/test");  // True
         }
+
+        public static void DirectoryInfoUtil()
+        {
+            var di = new DirectoryInfo("./test1/test2");
+            Console.WriteLine(di.Name);  // test2
+
+            di.Create();  // Create all subdirectory
+        }
     }
 }

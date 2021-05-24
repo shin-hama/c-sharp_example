@@ -7,8 +7,7 @@ namespace utility
     {
         static void Main(string[] args)
         {
-            var test = new AsyncUtil();
-            test.LockObject();
+            Generator.GeneratorUtil();
         }
 
         static void TestProcess()

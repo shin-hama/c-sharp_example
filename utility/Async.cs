@@ -67,9 +67,9 @@ namespace utility
         /// </summary>
         /// <param name="i"></param>
         /// <returns></returns>
-        private Task AddList(int i)
+        private async Task AddList(int i)
         {
-            return Task.Run(() =>
+            await Task.Run(() =>
             {
                 lock (SyncObject)
                 {
