@@ -7,7 +7,7 @@ namespace utility
     {
         static void Main(string[] args)
         {
-            Generator.GeneratorUtil();
+            StringUtil.StringJoin();
         }
 
         static void TestProcess()

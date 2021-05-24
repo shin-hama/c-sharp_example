@@ -7,8 +7,7 @@ namespace utility
     {
         public static void StringJoin()
         {
-            List<string> test = new List<string>() { "1", "2", "2", "2", "2" };
-            Console.WriteLine(string.Join("_", test));
+            Console.WriteLine(string.Join("_", new[] { "1", "2", "2", "s" }));
         }
 
         public static void ObjectToString()
