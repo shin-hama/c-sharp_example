@@ -23,12 +23,46 @@ namespace utility
         }
 
 
-        public static void SerializeJsonFile()
+        public static void DeserializeJsonFile()
         {
             string path = @"json\SmartViewStringConverterSetting.json";
-            var json = JsonConvert.DeserializeObject<SmartViewStringConverterSetting>(File.ReadAllText(path, Encoding.UTF8));
+            SmartViewStringConverterSetting json;
+            try
+            {
+                json = JsonConvert.DeserializeObject<SmartViewStringConverterSetting>(File.ReadAllText(path, Encoding.UTF8));
+            }
+            catch
+            {
+                // ファイルが無いときは各プロパティを Null として初期化
+                json = new SmartViewStringConverterSetting();
+            }
 
             Console.WriteLine(json);
+        }
+
+        public static void SerializeToJsonFile()
+        {
+            string path = @"json\SmartViewStringConverterSetting.json";
+            SmartViewStringConverterSetting json;
+            try
+            {
+                json = JsonConvert.DeserializeObject<SmartViewStringConverterSetting>(File.ReadAllText(path, Encoding.UTF8));
+            }
+            catch
+            {
+                // ファイルが無いときは各プロパティを Null として初期化
+                json = new SmartViewStringConverterSetting();
+            }
+
+            string output = @"json\output.json";
+            var serializer = new JsonSerializer
+            {
+                Formatting = Formatting.Indented
+            };
+            using (StreamWriter sw = new StreamWriter(output, false, Encoding.UTF8))
+            {
+                serializer.Serialize(sw, json);
+            }
         }
     }
 
@@ -92,6 +126,8 @@ namespace utility
             this.LearningServerShareDirRoot = learningServerShareDirRoot;
         }
 
+        public SmartViewStringConverterSetting() { }
+
         public override string ToString()
         {
             return $"LearningServerShareDirRoot: {LearningServerShareDirRoot}";
@@ -114,6 +150,8 @@ namespace utility
             this.From = from;
             this.To = to;
         }
+
+        public StringConverterSetting() { }
 
         public override string ToString()
         {
