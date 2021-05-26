@@ -21,6 +21,15 @@ namespace utility
 
             Console.WriteLine(commands);
         }
+
+
+        public static void SerializeJsonFile()
+        {
+            string path = @"json\SmartViewStringConverterSetting.json";
+            var json = JsonConvert.DeserializeObject<SmartViewStringConverterSetting>(File.ReadAllText(path, Encoding.UTF8));
+
+            Console.WriteLine(json);
+        }
     }
 
     public class Table
@@ -68,6 +77,48 @@ namespace utility
         /// </summary>
         [JsonProperty("Tag")]
         public string Tag { get; set; }
-
     }
+
+
+    public class SmartViewStringConverterSetting
+    {
+        [JsonProperty("LearningServerShareDirRoot")]
+        public StringConverterSetting LearningServerShareDirRoot { get; set; }
+
+        [JsonConstructor]
+        public SmartViewStringConverterSetting(
+            [JsonProperty("LearningServerShareDirRoot")] StringConverterSetting learningServerShareDirRoot)
+        {
+            this.LearningServerShareDirRoot = learningServerShareDirRoot;
+        }
+
+        public override string ToString()
+        {
+            return $"LearningServerShareDirRoot: {LearningServerShareDirRoot}";
+        }
+    }
+
+    public class StringConverterSetting
+    {
+        [JsonProperty("from")]
+        public string From { get; set; }
+
+        [JsonProperty("to")]
+        public string To { get; set; }
+
+        [JsonConstructor]
+        public StringConverterSetting(
+             [JsonProperty("from")] string from,
+             [JsonProperty("to")] string to)
+        {
+            this.From = from;
+            this.To = to;
+        }
+
+        public override string ToString()
+        {
+            return $"From: {From}, To: {To}";
+        }
+    }
+
 }

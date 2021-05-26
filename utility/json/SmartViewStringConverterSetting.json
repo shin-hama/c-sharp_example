@@ -1,0 +1,6 @@
+{
+  "LearningServerShareDirRoot": {
+    "from": "\\\\172.17.41.4\\",
+    "to": "C:\\"
+  }
+}
