@@ -7,7 +7,7 @@ namespace utility
     {
         static void Main(string[] args)
         {
-            JsonSerialize.SerializeToJsonFile();
+            JsonSerialize.DeserializeJsonFile();
         }
 
         static void TestProcess()

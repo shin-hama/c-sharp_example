@@ -134,7 +134,7 @@ namespace utility
         }
     }
 
-    public class StringConverterSetting
+    public class ConfigBase
     {
         [JsonProperty("from")]
         public string From { get; set; }
@@ -143,7 +143,7 @@ namespace utility
         public string To { get; set; }
 
         [JsonConstructor]
-        public StringConverterSetting(
+        public ConfigBase(
              [JsonProperty("from")] string from,
              [JsonProperty("to")] string to)
         {
@@ -151,12 +151,14 @@ namespace utility
             this.To = to;
         }
 
-        public StringConverterSetting() { }
+        public ConfigBase() { }
 
         public override string ToString()
         {
             return $"From: {From}, To: {To}";
         }
     }
+
+    public class StringConverterSetting : ConfigBase { }
 
 }
