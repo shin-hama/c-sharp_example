@@ -77,5 +77,26 @@ namespace utility
                 }
             });
         }
+
+        public static void TestAwait()
+        {
+            Console.WriteLine("Start Process");
+
+            var _task = Task.Run(() =>
+            {
+                Console.WriteLine("Start Task");
+
+                Task.Delay(10000).Wait();
+
+                Console.WriteLine("Finish Task");
+
+            });
+
+            Console.WriteLine("Wait Task");
+
+            _task.Wait();
+
+            Console.WriteLine("Finish Process");
+        }
     }
 }

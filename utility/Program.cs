@@ -7,7 +7,9 @@ namespace utility
     {
         static void Main(string[] args)
         {
-            JsonSerialize.DeserializeJsonFile();
+            AsyncUtil.TestAwait();
+
+            Console.WriteLine("Finish main");
         }
 
         static void TestProcess()

@@ -31,5 +31,11 @@ namespace utility
 
             di.Create();  // Create all subdirectory
         }
+
+        public static void FindRemoteFile()
+        {
+            string path = @"\\mnemosyne\EMSYS\EMSYSGFileServerMember.xls";
+            Console.WriteLine(File.Exists(path));
+        }
     }
 }
