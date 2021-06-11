@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 namespace ApiTest
@@ -14,30 +15,79 @@ namespace ApiTest
         {
             string serverUrl = "http://localhost:49299/CommandService";
 
-            UploadFile(serverUrl);
+            ExecuteCommand(serverUrl);
+        }
+
+        static void GetProcess(string api)
+        {
+            string name = "testName";
+            string uri = $"{api}/Processes/{name}";
+
+            // Check no member with name
+            // return {"process":"","status":"OK"}
+            string response = GetResponse($"{uri}", "", "GET");
+            Console.WriteLine(response);
+
+            var res = JsonConvert.DeserializeObject<Dictionary<string, string>>(response);
+            Console.WriteLine(string.IsNullOrWhiteSpace(res["process"]));
+
+            ExecuteCommand(api);
+
+            // Check no member with name
+            // return {"process":"{\"Name\":\"testName\",\"IsAsync\":true}","status":"OK"}
+            response = GetResponse($"{uri}", "", "GET");
+            Console.WriteLine(response);
+            Console.WriteLine(JsonConvert.DeserializeObject(response));
+        }
+
+        static void ExecuteCommand(string api, string name = "")
+        {
+            string uri = $"{api}/Command/Execute";
+
+            int num = 1;
+            Task[] results = new Task[num];
+            for (int i = 0; i < num; i++)
+            {
+                string body = JsonConvert.SerializeObject(new
+                {
+                    Command = $"python -m tkinter & echo {i} > D:/workspace/test_{i}.txt",
+                    Name = name,
+                    IsAsync = true,
+                });
+                results[i] = Task.Run(() =>
+                {
+                    string response = GetResponse($"{uri}", body, "POST");
+                    Console.WriteLine(response);
+                    Console.WriteLine("Finish: " + i);
+                });
+            }
+
+            Task.WaitAll(results);
         }
 
         static void UploadFile(string api)
         {
             string uri = $"{api}/File/Upload";
-            string path = @"C:\Users\Public\Documents\JEOL\AutomationCenter\LamellaDetection\ModelTree\Flag\ab\counter.txt";
+            string path = @"D:\workspace\test\ApiTest\Flag\ab\counter.txt";
 
             string response = GetResponse($"{uri}?path={path}", "uploaded", "POST");
+            Console.WriteLine(response);
         }
 
         static void GetFile(string api)
         {
             string uri = $"{api}/File/Download";
 
-            string path = @"C:\Users\Public\Documents\JEOL\AutomationCenter\LamellaDetection\ModelTree\Flag\ab\counter.txt";
+            string path = @"D:\workspace\test\counter.zip";
 
             string response = GetResponse($"{uri}?path={path}", "", "GET");
             Console.WriteLine(response);
         }
 
-        static void GetDirectories(string uri)
+        static void GetDirectories(string api)
         {
-            string root = @"C:\Users\Public\Documents\JEOL\AutomationCenter\LamellaDetection\ModelTree";
+            string uri = $@"{api}\Directories";
+            string root = @"D:\workspace\test\ApiTest\Flag\ab.test";
 
             string response = GetResponse($"{uri}?root={root}", "", "GET");
             JObject test = JObject.Parse(response);
@@ -49,12 +99,17 @@ namespace ApiTest
             }
         }
 
-        static void MakeDirectory(string uri)
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="api"></param>
+        static void MakeDirectory(string api)
         {
-            string dirPath = @"C:\Users\Public\Documents\JEOL\AutomationCenter\LamellaDetection\ModelTree\Flag\test";
+            string uri = $@"{api}\Directories";
+            string dirPath = @"D:\workspace\test\ApiTest\Flag\ab.test";
             var jsonParameter = JsonConvert.SerializeObject(new
             {
-                path = dirPath,
+                Path = dirPath,
             });
 
             string response = GetResponse(uri, jsonParameter, "POST");
