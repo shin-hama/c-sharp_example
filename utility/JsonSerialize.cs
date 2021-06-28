@@ -38,6 +38,7 @@ namespace utility
             }
 
             Console.WriteLine(json);
+            Console.WriteLine(json.IsTest);
         }
 
         public static void SerializeToJsonFile()
@@ -119,11 +120,18 @@ namespace utility
         [JsonProperty("LearningServerShareDirRoot")]
         public StringConverterSetting LearningServerShareDirRoot { get; set; }
 
+
+        [JsonProperty("IsTest")]
+        public bool IsTest { get; set; }
+
         [JsonConstructor]
         public SmartViewStringConverterSetting(
-            [JsonProperty("LearningServerShareDirRoot")] StringConverterSetting learningServerShareDirRoot)
+            [JsonProperty("LearningServerShareDirRoot")] StringConverterSetting learningServerShareDirRoot,
+            [JsonProperty("IsTest")] bool? isTest)
         {
             this.LearningServerShareDirRoot = learningServerShareDirRoot;
+            // Set false if IsTest is not defined in file.
+            this.IsTest = isTest ?? false;
         }
 
         public SmartViewStringConverterSetting() { }

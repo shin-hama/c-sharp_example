@@ -7,9 +7,7 @@ namespace utility
     {
         static void Main(string[] args)
         {
-            AsyncUtil.TestAwait();
-
-            Console.WriteLine("Finish main");
+            EnumUtil.FindValue();
         }
 
         static void TestProcess()
