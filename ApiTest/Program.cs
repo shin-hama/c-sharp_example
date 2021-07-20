@@ -48,9 +48,10 @@ namespace ApiTest
             Task[] results = new Task[num];
             for (int i = 0; i < num; i++)
             {
+                var command = $"python -m tkinter & echo {i} > D:/workspace/test_{i}.txt";
                 string body = JsonConvert.SerializeObject(new
                 {
-                    Command = $"python -m tkinter & echo {i} > D:/workspace/test_{i}.txt",
+                    Command = command,
                     Name = name,
                     IsAsync = true,
                 });

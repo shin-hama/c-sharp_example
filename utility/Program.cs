@@ -7,7 +7,7 @@ namespace utility
     {
         static void Main(string[] args)
         {
-            EnumUtil.FindValue();
+            ProcessUtil.RunProcess();
         }
 
         static void TestProcess()

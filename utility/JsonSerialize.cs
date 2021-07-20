@@ -65,6 +65,15 @@ namespace utility
                 serializer.Serialize(sw, json);
             }
         }
+
+        public static void DeserializeEscapeSequence()
+        {
+            var test = "{\"command\": \"\\\"test test\\\"\"}";
+            var _test = JsonConvert.DeserializeObject(test);
+
+            Console.WriteLine(_test);
+
+        }
     }
 
     public class Table
