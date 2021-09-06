@@ -10,6 +10,14 @@ namespace JsonTraining
 
         static void Main(string[] args)
         {
+            string path = "./test.json";
+            var test = JsonConvert.DeserializeObject<testLoadProperty>(File.ReadAllText(path));
+
+            Console.WriteLine(test.Hoge + test.Fuga);
+        }
+
+        static void testJsonConfig()
+        {
             JsonConfig jc = new JsonConfig();
             jc.Load();
             jc.Save();
