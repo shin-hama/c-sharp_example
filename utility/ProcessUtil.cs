@@ -18,13 +18,28 @@ namespace utility
                 startInfo.FileName = System.Environment.GetEnvironmentVariable("ComSpec");
                 startInfo.CreateNoWindow = true;
                 startInfo.UseShellExecute = false;
-                startInfo.Arguments = arg;
+                startInfo.Arguments = "/c start C:\\PROGRA~1\\JEOL\\AutomationCenter\\bin\\Release\\AutomationCenter.exe C:\\Users\\Public\\Documents\\JEOL\\AutomationCenter\\Recipe\\MultiSpecPorter\\Temp\\9-recipe.jac";
                 startInfo.Verb = "RunAs";
                 startInfo.WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
                 //startInfo.WorkingDirectory = "";                     //先にAnacondaを入れるため、WorkingDirectoryはどこでもよくなった
 
-                Process process = Process.Start(startInfo);
+                var processInfo = new ProcessStartInfo
+                {
+                    FileName = "cmd.exe",
+                    CreateNoWindow = false,
+                    UseShellExecute = true,
+                    Arguments = "/c start C:\\PROGRA~1\\JEOL\\AutomationCenter\\bin\\Release\\AutomationCenter.exe C:\\Users\\Public\\Documents\\JEOL\\AutomationCenter\\Recipe\\MultiSpecPorter\\Temp\\9-recipe.jac & pause"
+                };
+
+                Process process = new Process();
+                process.StartInfo = startInfo;
+                process.Start();
                 process.WaitForExit();
+
+                var versionStr = process.StandardOutput.ReadToEnd().Trim();
+                Console.WriteLine(versionStr);
+                Version.TryParse(versionStr, out var version);
+                Console.WriteLine(version);
             }
             catch (Exception ex)
             {

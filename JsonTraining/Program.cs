@@ -12,13 +12,16 @@ namespace JsonTraining
         static void Main(string[] args)
         {
             string path = "./FullAuto.jac";
-            var test = JObject.Parse(File.ReadAllText(path));
+            path = "D:/workspace";
+            Console.WriteLine(File.Exists(path));
+            Console.WriteLine(Directory.Exists(path));
+            // var test = JObject.Parse(File.ReadAllText(path));
 
-            ParseRecipe(test);
+            // ParseRecipe(test);
 
-            Console.WriteLine(test);
-            test["Id"] = 5;
-            SaveJson(test);
+            // Console.WriteLine(test);
+            // test["Id"] = 5;
+            // SaveJson(test);
         }
 
         static void ParseRecipe(JObject recipe)

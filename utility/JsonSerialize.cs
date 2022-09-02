@@ -72,7 +72,21 @@ namespace utility
             var _test = JsonConvert.DeserializeObject(test);
 
             Console.WriteLine(_test);
+        }
 
+        public static void SerializeEscape()
+        {
+            string body = JsonConvert.SerializeObject(new
+            {
+                Command = "\"test test\"",
+                Name = "name",
+                IsAsync = "True",
+            });
+
+            Console.WriteLine(body);
+
+            var test = JsonConvert.DeserializeObject("{\"Command\":\"\\\"test test\\\"\",\"Name\":\"name\",\"IsAsync\":\"True\"}");
+            Console.WriteLine(test);
         }
     }
 

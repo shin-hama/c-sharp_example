@@ -7,7 +7,8 @@ namespace utility
     {
         static void Main(string[] args)
         {
-            ProcessUtil.RunProcess();
+            new FileMonitor().Main();
+            // ProcessUtil.RunProcess();
         }
 
         static void TestProcess()
